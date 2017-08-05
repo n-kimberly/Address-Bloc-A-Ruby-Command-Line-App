@@ -17,6 +17,7 @@ class MenuController
     puts "3 - Search for an entry"
     puts "4 - Import entries from a CSV"
     puts "5 - Exit"
+    puts "6 - View by entry number"
     print "Enter your selection: "
     selection = gets.to_i # gets retrieves user input from the command line.
     puts "You picked #{selection}"
@@ -40,6 +41,10 @@ class MenuController
       when 5
         puts "Good-bye!"
         exit(0)
+      when 6
+        system "clear"
+        view_by_number
+        main_menu
       else  # Catch invalid user input and proper user to retry.
         system "clear"
         puts "Sorry, that is not a valid input."
@@ -96,3 +101,24 @@ end
 # def read_csv
 #
 # end
+
+def view_by_number
+  system "clear"
+  puts "Look up by entry number"
+
+  print "Please provide your desired entry number: "
+  begin
+    n = gets.chomp
+    n = Integer(n)
+  rescue
+    print "Sorry, that is not a valid input. Please enter an integer number."
+    retry
+  end
+
+  if n <= address_book.entries.size
+    puts "You selected entry ##{n}.\n#{address_book.entries[n-1].to_s}"
+  else
+    puts "Sorry, that entry does not exist. There are only #{address_book.entries.size} entries."
+  end
+
+end
