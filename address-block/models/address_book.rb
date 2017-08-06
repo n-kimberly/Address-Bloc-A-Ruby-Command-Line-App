@@ -36,4 +36,26 @@ class AddressBook
     end
   end
 
+  def binary_search(name)
+    # First, pick a middle entry.
+    lower = 0
+    upper = entries.length - 1
+    while lower <= upper
+      mid = (lower + upper) / 2
+      mid_name = entries[mid].name
+      # If that happens to be correct, return it.
+      if name == mid_name
+        return entries[mid]
+      # If the name is alphabetically before the middle, look lower
+      elsif name < mid_name
+        upper = mid - 1
+      # If the name is alphabetically after the middle, look higher
+      elsif name > mid_name
+        lower = mid + 1
+      end
+    end
+    # If no return made from searching, return nil.
+    return nil
+  end
+
 end
