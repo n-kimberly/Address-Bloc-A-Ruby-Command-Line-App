@@ -51,7 +51,7 @@ class MenuController
     address_book.entries.each do |entry|
       system "clear"
       puts entry.to_s
-      # entry_submenu(entry)
+      entry_submenu(entry)
     end
   end
 
@@ -93,6 +93,9 @@ end
 #
 # end
 #
-# def read_csv
-#
-# end
+def read_csv
+  system "clear"
+  print "Enter the name of the file you would like to upload: "
+  file_name = gets.chomp
+  address_book.import_from_csv(file_name)
+end
