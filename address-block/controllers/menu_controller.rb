@@ -15,9 +15,10 @@ class MenuController
     puts "Main Menu - #{address_book.entries.count} entries"
     puts "1 - View all entries"
     puts "2 - Create an entry"
-    puts "3 - Search for an entry"
-    puts "4 - Import entries from a CSV"
-    puts "5 - Exit"
+    puts "3 - Delete all entries"
+    puts "4 - Search for an entry"
+    puts "5 - Import entries from a CSV"
+    puts "6 - Exit"
     print "Enter your selection: "
     selection = gets.to_i # gets retrieves user input from the command line.
     puts "You picked #{selection}"
@@ -31,14 +32,17 @@ class MenuController
         create_entry
         main_menu
       when 3
-        # system "clear"
-        search_entries
+        demolish
         main_menu
       when 4
         # system "clear"
-        read_csv
+        search_entries
         main_menu
       when 5
+        # system "clear"
+        read_csv
+        main_menu
+      when 6
         puts "Good-bye!"
         exit(0)
       else  # Catch invalid user input and proper user to retry.
@@ -80,11 +84,11 @@ class MenuController
 
   def create_entry
     puts "New AddressBlock Entry"
-    print "Name:"
+    print "Name: "
     name = gets.chomp # Chomp deletes the new line at the end of a user input.
-    print "Phone Number:"
+    print "Phone Number: "
     phone_number = gets.chomp
-    print "Email:"
+    print "Email: "
     email = gets.chomp
     address_book.add_entry(name, phone_number, email)
     # system "clear"
@@ -93,7 +97,12 @@ class MenuController
 
   def delete_entry(entry)
     address_book.entries.delete(entry)
-    puts "#{entry.name} has been deleted"
+    puts "#{entry.name} has been deleted."
+  end
+
+  def demolish
+    address_book.entries.clear
+    puts "all entries have been deleted."
   end
 
   def edit_entry(entry)
